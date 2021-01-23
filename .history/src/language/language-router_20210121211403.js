@@ -71,15 +71,20 @@ languageRouter.post("/guess", parser, async (req, res, next) => {
   }
 
   try {
+    //request user words
     const words = await LanguageService.getLanguageWords(db, language);
+    //find the head
     const [{ head }] = await LanguageService.getHead(db, language);
     const list = LanguageService.generateLinkedList(words, head);
     const [checkGuess] = await LanguageService.checkGuess(db, language);
 
     if (checkGuess.translation === guess) {
+      //if guess is correct, double the memory value and add a correct counter value
       let mv = list.head.value.memory_value * 2;
       list.head.value.memory_value = mv;
       list.head.value.correct_count++;
+
+      //send the correctly guessed word to the back of list
       
       const answer = list.sendBackM(mv);
       
@@ -100,6 +105,7 @@ languageRouter.post("/guess", parser, async (req, res, next) => {
         isCorrect: true,
       });
     } else {
+      //incorrect guess
       list.head.value.memory_value = 1;
       list.head.value.incorrect_count++;
       
