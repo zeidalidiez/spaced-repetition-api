@@ -1,52 +1,56 @@
-# Spaced repetition API!
+# Spaced Repetition
 
-## Local dev setup
+## Links
+Backend: https://github.com/zeidalidiez/spaced-repetition-api
 
-If using user `dunder-mifflin`:
+Frontend: https://github.com/zeidalidiez/spaced-repetition
 
-```bash
-mv example.env .env
-createdb -U dunder-mifflin spaced-repetition
-createdb -U dunder-mifflin spaced-repetition-test
-```
+Backend API: https://desolate-dawn-86670.herokuapp.com/api
 
-If your `dunder-mifflin` user has a password be sure to set it in `.env` for all appropriate fields. Or if using a different user, update appropriately.
+Frontend deployed through Vercel: https://spaced-repetition-drab.vercel.app/
 
-```bash
-npm install
-npm run migrate
-env MIGRATION_DB_NAME=spaced-repetition-test npm run migrate
-```
+## Description
+Utilizing spaced repetition, this app seeks to enhance users ability to memorize words in a foreign language(Spanish).
 
-And `npm test` should work at this point
+Use the following demo account to test the app, or create a new user. 
 
-## Configuring Postgres
+Username:demo
+Password:Demo1234!
 
-For tests involving time to run properly, configure your Postgres database to run in the UTC timezone.
+### FrontEnd
+- JavaScript
+- React
+- Cypress
 
-1. Locate the `postgresql.conf` file for your Postgres installation.
-   1. E.g. for an OS X, Homebrew install: `/usr/local/var/postgres/postgresql.conf`
-   2. E.g. on Windows, _maybe_: `C:\Program Files\PostgreSQL\11.2\data\postgresql.conf`
-   3. E.g  on Ubuntu 18.04 probably: '/etc/postgresql/10/main/postgresql.conf'
-2. Find the `timezone` line and set it to `UTC`:
+### Backend
+- Node
+- Express
+- Knex
+- CORS
+- Chai
+- Mocha
+- Supertest
+- Frontend
+- PostgreSQL
+- JWT
 
-```conf
-# - Locale and Formatting -
+## Main page
 
-datestyle = 'iso, mdy'
-#intervalstyle = 'postgres'
-timezone = 'UTC'
-#timezone_abbreviations = 'Default'     # Select the set of available time zone
-```
+![learn](https://i.imgur.com/o5rwymm.png)
 
-## Scripts
+## Documentation
 
-Start the application `npm start`
+### '/api/auth'
+Use to POST a login with a username and password, this will validate and create JWT
 
-Start nodemon for the application `npm run dev`
+### '/api/language/'
+GET will obtain words for user
 
-Run the tests mode `npm test`
+### '/api/language/head'
+GET will obtain next word
 
-Run the migrations up `npm run migrate`
+### '/api/language/guess'
+GET will compare users chosen word to correct word
 
-Run the migrations down `npm run migrate -- 0`
+### '/api/user/
+POST will sign up new user
